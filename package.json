@@ -1,0 +1,31 @@
+{
+  "name": "projeto-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "npx tsc",
+    "build": "docker build . -t otaviolube/projetocrudapi",
+    "dev": "set NODE_ENV=development&& npx ts-node-dev ./src/server",
+    "predockerize": "docker-compose down --rmi all",
+    "dockerize": "npx tsc && docker-compose up -d --force-recreate --build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/knex": "^0.16.1",
+    "@types/node": "^16.11.12",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "knex": "^0.95.14",
+    "mysql2": "^2.3.3"
+  }
+}
+

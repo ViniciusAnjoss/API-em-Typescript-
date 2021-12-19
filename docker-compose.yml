@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: mysql
+    env_file: ./.env
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=$PASSWORD
+      - MYSQL_DATABASE=$DATABASE
+    ports:
+      - 3145:3145
+    volumes:
+      - db:/var/lib/mysql
+  nodeapi:
+    depends_on:
+      - mysqldb
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $PORT:$PORT
+    environment:
+      - HOST=mysqldb
+      - DATABASE=projetocrud
+      - USER=root
+      - PASSWORD=mysql
+    stdin_open: true
+    tty: true
+  
+volumes:
+  db:
